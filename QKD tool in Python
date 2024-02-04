@@ -1,0 +1,17 @@
+def bb84():
+    # Alice generates a random bit string
+    alice_bits = [random.randint(0, 1) for _ in range(10)]
+
+    # Alice prepares her qubits based on her bit string
+    alice_qubits = ['+' if bit == 0 else 'x' for bit in alice_bits]
+
+    # Bob measures the qubits in random bases
+    bob_bases = [random.choice(['+', 'x']) for _ in range(10)]
+    bob_bits = [int(base == qubit) for base, qubit in zip(bob_bases, alice_qubits)]
+
+    # They compare bases and keep the bits where they used the same base
+    key = [alice_bit for alice_bit, alice_qubit, bob_base in zip(alice_bits, alice_qubits, bob_bases) if alice_qubit == bob_base]
+
+    return key
+
+print(bb84())
